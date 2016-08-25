@@ -86,7 +86,7 @@ void calcola_dati(vertice_grafo_t *grafo_p, grafo_t appoggio_p)
   }
 }
 
-/*calcola masimo e minimo*/
+/*calcola massimo e minimo*/
 /*
 * Alla funzione è passato il primo elemento della
 * lista di adiacenza e i puntatori ai valori max e min;

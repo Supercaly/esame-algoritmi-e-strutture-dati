@@ -44,7 +44,7 @@ void elabora(int);
 /****************************/
 /*definizione delle funzioni*/
 /****************************/
-/*avvia la visia in ampiezza BFS*/
+/*avvia la visita in ampiezza BFS*/
 void avvia_visita_grafo_amp(vertice_grafo_t *grafo_p)
 {
 	vertice_grafo_t *vertice_p;

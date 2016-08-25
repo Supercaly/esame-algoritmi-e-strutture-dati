@@ -30,7 +30,7 @@
 /****************/
 /*
 * Definizione del tipo di dato 'colore' da utilizzare nella BFS.
-* i colori sono: biano (vertice mai visitato), grigio (vertice
+* i colori sono: bianco (vertice mai visitato), grigio (vertice
 * con vertici adiacenti ancora bianchi), nero (vertice con vertici
 * adiacenti tutti già visitati).
 */
@@ -102,7 +102,7 @@ grafo_t prendi_file (vertice_grafo_t **valore)
 	grafo_t app_p;	/*variabile della struttura grafo_t*/
 	FILE * file;		/*variabile del file grafo.txt*/
 
-	/*apro il file in sola letura*/
+	/*apro il file in sola lettura*/
   file = fopen(FILE_GRAFO, "r");
 
 	/*se il file non esiste segna errore e chiude
@@ -120,7 +120,7 @@ grafo_t prendi_file (vertice_grafo_t **valore)
 	return app_p;
 }
 /*
-* Inizialmente si acquiscicono dal file tutti i valori che vengono poi messi
+* Inizialmente si acquisiscono dal file tutti i valori che vengono poi messi
 * dentro degli array specifici, poi tutti i dati sono inseriti, tramite gli
 * algoritmi di inserimento nelle liste, nella lista di adiacenza che definisce
 * il grafo.

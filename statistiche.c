@@ -55,7 +55,7 @@ void calcola_dati(vertice_grafo_t *grafo_p, grafo_t appoggio_p)
   }
 }
 
-/*calcola masimo e minimo*/
+/*calcola massimo e minimo*/
 /*
 * Alla funzione è passato il primo elemento della
 * lista di adiacenza e i puntatori ai valori max e min;
@@ -93,7 +93,7 @@ void calcola_max_min(vertice_grafo_t *grafo_p,
 }
 /*calcola media*/
 /*
-* Alla funzione è fassato il primo elemento della lista di
+* Alla funzione è passato il primo elemento della lista di
 * adiacenza e il puntatore alla mediana; la funzione scorre
 * tutta la lista di adiacenza sommando tutti i valori dei pesi
 * e aggiornando il numero dei vertici, infine divide la somma
