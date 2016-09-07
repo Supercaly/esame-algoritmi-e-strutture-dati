@@ -17,8 +17,7 @@ void calcola_max_min(vertice_grafo_t *,
                      double          *);
 void calcola_media(vertice_grafo_t *,
                    double          *);
-void calcola_mediana(vertice_grafo_t *,
-                     double          *,
+void calcola_mediana(double          *,
                      grafo_t         );
 void quicksort(double *,
                int     ,
@@ -45,7 +44,7 @@ void calcola_dati(vertice_grafo_t *grafo_p, grafo_t appoggio_p)
     /*calcola massimo e minimo*/
     calcola_max_min(grafo_p, &max, &min);
     calcola_media(grafo_p, &media);
-    calcola_mediana(grafo_p, &mediana, appoggio_p);
+    calcola_mediana(&mediana, appoggio_p);
     /*stampa i valori calcolati*/
     printf("Valori del peso:\n");
     printf("  Massimo: %.2f\n", max);
@@ -129,7 +128,7 @@ void calcola_media(vertice_grafo_t *grafo_p, double *media)
 * dei pesi e n = al numero totale di vertici; si invoca il quick sort per
 * ottenere, infine, la mediana data dall'elemento n/2 dell'array ordinato.
 */
-void calcola_mediana(vertice_grafo_t *grafo_p,double *mediana, grafo_t appoggio_p)
+void calcola_mediana(double *mediana, grafo_t appoggio_p)
 {
   double *array;
   int n;

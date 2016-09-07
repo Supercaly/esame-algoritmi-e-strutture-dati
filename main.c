@@ -31,26 +31,32 @@ int main(void)
 
 	do
 	{
+		/*stampa il menu di scelta*/
 		operazione = menu();
 
 		switch (operazione)
 		{
 			case 1:
+				/*prende i dati da file*/
 				app_p = prendi_file(&grafo_p);
 				break;
 			case 2:
+				/*visita il ampiezza*/
 				ERRORE_3(grafo_p);
 				avvia_visita_grafo_amp(grafo_p);
 				break;
 			case 3:
+				/*visita in profondità*/
 				ERRORE_3(grafo_p);
 				avvia_visita_grafo_prof(grafo_p);
 				break;
 			case 4:
+				/*calcola le statistiche*/
 				ERRORE_3(grafo_p);
 				calcola_dati(grafo_p, app_p);
 				break;
 			case 5:
+				/*esce dal programma*/
 				break;
 		}
 	}

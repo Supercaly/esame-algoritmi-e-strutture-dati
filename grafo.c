@@ -64,10 +64,10 @@ typedef struct arco_grafo
 typedef struct
 {
 	int	vert_tot,		/*vertici totali*/
-			tot_vert,		/*somma di tutti i vertici*/
-			*vert_coll,	/*vertici collegati ad ogni vertice*/
-			*vert2;			/*secondo vertice*/
-	double *peso;		/*peso dell'arco*/
+			tot_vert,		/*mantiene la dimensione degli array tra i loop*/
+			*vert_coll,	/*[array] vertici collegati ad ogni vertice*/
+			*vert2;			/*[array] secondo vertice*/
+	double *peso;		/*[array] peso dell'arco*/
 } grafo_t;
 
 /******************************/
@@ -76,7 +76,7 @@ typedef struct
 grafo_t prendi_file(vertice_grafo_t **);
 
 grafo_t prendi_dati(FILE 					 *,
-								vertice_grafo_t **);
+										vertice_grafo_t **);
 
 int inserisci_in_lista_primaria(vertice_grafo_t **,
 																int 						);
@@ -86,7 +86,7 @@ int inserisci_in_lista_secondaria(arco_grafo_t 		**,
 																  double			    );
 
 vertice_grafo_t *cerca_in_lista(vertice_grafo_t *,
-															 int						 	);
+															 	int						 	);
 /****************************/
 /*definizione delle funzioni*/
 /****************************/
@@ -95,7 +95,7 @@ vertice_grafo_t *cerca_in_lista(vertice_grafo_t *,
 * Apre il file in lettura "r" ed esegue la funzione
 * che acquisisce i dati e li mette all'iterno della struttura;
 * nel caso in cui nessun file si chiami come il contenuto
-* della costante FILE_GRAFO segnala l'errore e termina il programma.
+* della costante FILE_GRAFO segnala l'errore.
 */
 grafo_t prendi_file (vertice_grafo_t **valore)
 {
@@ -105,18 +105,20 @@ grafo_t prendi_file (vertice_grafo_t **valore)
 	/*apro il file in sola lettura*/
   file = fopen(FILE_GRAFO, "r");
 
-	/*se il file non esiste segna errore e chiude
-	* il programma tornando al terminale */
-	if(file == NULL)
+	/*se il file esiste avvia l'acquisizione normalmente*/
+	if(file != NULL)
 	{
-		perror("Error");
-		exit(EXIT_FAILURE);
+		/*corpo centrale dell'acquisizione*/
+		app_p = prendi_dati(file, valore);
+		/*chiude il file*/
+		fclose(file);
 	}
-	/*corpo centrale dell'acquisizione*/
-	app_p = prendi_dati(file, valore);
-	/*chiude il file*/
-	fclose(file);
-
+	/*altrimenti segna un errore*/
+	else
+	{
+		perror("ERROR");
+		printf("Per terminare il programma digitare 'Ctrl-c'");
+	}
 	return app_p;
 }
 /*
@@ -127,12 +129,12 @@ grafo_t prendi_file (vertice_grafo_t **valore)
 */
 grafo_t prendi_dati(FILE *file, vertice_grafo_t **grafo_p)
 {
-	grafo_t app_p;	/*array da inserire nella lista*/
-	vertice_grafo_t *testa_sec_p = *grafo_p,	/*una copia della testa*/
+	grafo_t app_p;	/*struttura d'appoggio da inserire nella lista*/
+	app_p.tot_vert = 0; /*tot vert è inizializzato a 0*/
+	vertice_grafo_t *testa_sec_p, /*una copia della testa*/
 	 								*v_adiac_p;			/*elemento cercato nella lista*/
-	int	vert1; 			/*primo vertice*/
-	int m = 0, 			/*mantiene la posizione degli array tra i due loop*/
-			i,		 			/*contatore loop di carica esterno e secondo loop*/
+	int	vert1; 			/*primo vertice (variabile temporanea)*/
+	int i,		 			/*contatore loop di carica esterno e secondo loop*/
 			j,		 			/*contatore loop di carica interno*/
 			controllo,	/*controllo delle fscanf*/
 			errore = 0;	/*segnala la presenza di errori*/
@@ -151,23 +153,27 @@ grafo_t prendi_dati(FILE *file, vertice_grafo_t **grafo_p)
 	{
 		controllo = fscanf(file, "%d", &app_p.vert_coll[i]);
 		ERRORE_1(controllo, errore, 1);
-		for(j = 0; (j < app_p.vert_coll[i]); j++, m++)
+		for(j = 0; (j < app_p.vert_coll[i]); j++, app_p.tot_vert++)
 		{
 			controllo = fscanf(file, "%d %d %lf",
 			       						 &vert1,
-						 					 	 &app_p.vert2[m],
-						  				 	 &app_p.peso[m]);
+						 					 	 &app_p.vert2[app_p.tot_vert],
+						  				 	 &app_p.peso[app_p.tot_vert]);
 			ERRORE_1(controllo, errore, 3);
 		}
 	}
+	/*se nel loop di carica c'erano errori li segnala*/
 	ERRORE_2(errore);
 
+ 	/*azzero nuovamente tot_vert*/
+	app_p.tot_vert = 0;
 	/*inserisco i dati degli array nella lista di adiacenza*/
 	/*creo la lista primaria*/
 	for (i = 0; i < app_p.vert_tot; i++)
 		inserisci_in_lista_primaria(grafo_p,
-												  			i+1);
-		testa_sec_p = *grafo_p;
+											  				i+1);
+	/*la copia diventa uguale alla lista primaria appena creata*/
+	testa_sec_p = *grafo_p;
 	/*creo la lista secondaria*/
 	for (i = 0; i < app_p.vert_tot; i++)
 	{

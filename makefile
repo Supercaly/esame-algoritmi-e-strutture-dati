@@ -8,13 +8,13 @@
 target = programma
 CC = gcc
 RM = rm -f
-CFLAGS = -ansi -Wall
+CFLAGS = -ansi -Wall -W -Wshadow
 oggetti = main.o grafo.o statistiche.o ordinamento.o
 sorgenti = main.c grafo.c statistiche.c ordinamento.c
 #Obbiettivi
 #genera il file eseguibile
 $(target): $(oggetti) makefile
-	$(CC) $(CFLAGS) -O $(oggetti) -o $(target)
+	$(CC) $(CFLAGS) -o2 $(oggetti) -o $(target)
 #genera i file oggetto
 $(oggetti): $(sorgenti) makefile
 	$(CC) $(CFLAGS) -c $(sorgenti)

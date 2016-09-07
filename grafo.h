@@ -7,35 +7,43 @@
 /*****************************/
 /*struttura dati da esportare*/
 /*****************************/
-/*definizione del campo colore*/
+/*
+* definizione del campo colore
+*/
 typedef enum {bianco, grigio, nero} colore_t;
-/*lista primaria*/
+/*
+* Lista primaria.
+*/
 typedef struct vertice_grafo
 {
-	int valore;
-	struct vertice_grafo *vertice_succ_p;
-	struct arco_grafo *lista_archi_p;
-	colore_t colore;
-	int distanza,
-			inizio,
-			fine;
-	struct vertice_grafo *padre_p;
+	int valore;														/*valore secondo cui è ordinata la lista*/
+	struct vertice_grafo *vertice_succ_p; /*puntatore all'elemento successivo*/
+	struct arco_grafo *lista_archi_p;     /*puntatore al primo elemento della lista degli archi*/
+	colore_t colore;											/*colore del vertice(per BFS e DFS)*/
+	int distanza,													/*distanza dal vertice di partenza (per BFS)*/
+			inizio,														/*inizio (per DFS)*/
+			fine;															/*fine (per DFS)*/
+	struct vertice_grafo *padre_p;				/*puntatore al vertice padre (per BFS e DFS)*/
 } vertice_grafo_t;
-/*lista secondaria associata ad un vertice*/
+/*
+* Lista secondaria associata ad un vertice.
+*/
 typedef struct arco_grafo
 {
-	double peso;
-	struct vertice_grafo *vertice_adiac_p;
-	struct arco_grafo *arco_succ_p;
+	double peso;													 /*peso dell'arco tra i due vertici*/
+	struct vertice_grafo *vertice_adiac_p; /*puntatore al secondo vertice dell'arco*/
+	struct arco_grafo *arco_succ_p;				 /*puntatore all'arco successivo*/
 } arco_grafo_t;
-/*struttura d'appoggio*/
+/*
+* Struttura di appoggio.
+*/
 typedef struct
 {
-	int	vert_tot,
-			tot_vert,
-			*vert_coll,
-			*vert2;
-	double *peso;
+	int	vert_tot,		/*vertici totali*/
+			tot_vert,		/*mantiene la dimensione degli array tra i loop*/
+			*vert_coll,	/*[array] vertici collegati ad ogni vertice*/
+			*vert2;			/*[array] secondo vertice*/
+	double *peso;		/*[array] peso dell'arco*/
 } grafo_t;
 
 /*********************************************/
