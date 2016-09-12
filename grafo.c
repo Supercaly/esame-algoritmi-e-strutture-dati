@@ -116,8 +116,7 @@ grafo_t prendi_file (vertice_grafo_t **valore)
 	/*altrimenti segna un errore*/
 	else
 	{
-		perror("ERROR");
-		printf("Per terminare il programma digitare 'Ctrl-c'");
+		perror("Error");
 	}
 	return app_p;
 }
